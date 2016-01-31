@@ -21,9 +21,11 @@ import java.util.Map;
 
 import net.lr.tutorial.karaf.cxf.personrest.model.Person;
 import net.lr.tutorial.karaf.cxf.personrest.model.PersonService;
+import service.HelloService;
 
 public class PersonServiceImpl implements PersonService {
     Map<String, Person> personMap;
+    private HelloService helloService;
     
     public PersonServiceImpl() {
         personMap = new HashMap<String, Person>();
@@ -39,6 +41,7 @@ public class PersonServiceImpl implements PersonService {
     }
     
     public Person[] getAll() {
+    	System.out.println(helloService.sayHello("Harshdev"));
         return personMap.values().toArray(new Person[]{});
     }
     
@@ -55,6 +58,15 @@ public class PersonServiceImpl implements PersonService {
     public void addPerson(Person person) {
         System.out.println("Add request received for " + person.getId() + " name:" + person.getName());
         personMap.put(person.getId(), person);
+    }
+    public void bindHelloService(HelloService helloService, Map properties) {
+    	System.out.println("bindHelloService");
+    	this.helloService = helloService;
+    }
+    
+    public void unbindHelloService(HelloService helloService, Map properties) {
+    	System.out.println("unbindHelloService");
+    	helloService = null;
     }
     
 }

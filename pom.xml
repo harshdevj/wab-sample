@@ -212,6 +212,7 @@
 						<_wab>src/main/webapp</_wab>  <!-- could also use src/main/resources if you like -->
 						<Web-ContextPath>/wab</Web-ContextPath>
 						<Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
+						<Export-Package>service</Export-Package>
 						<Import-Package>
 							javax.servlet;version="3.1.0",
 							org.springframework.osgi.web.context.support,

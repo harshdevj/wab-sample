@@ -16,8 +16,17 @@
   ">
 	<cxf:bus id="personRestBus" />
 
+	<bean id="helloImpl" class="service.HelloServiceImpl" />
+	<service id="helloService" ref="helloImpl" interface="service.HelloService" />
+	
 	<bean id="personServiceImpl" class="net.lr.tutorial.karaf.cxf.personrest.impl.PersonServiceImpl" />
-
+	
+	<reference-list id="bndHelloSvc" interface="service.HelloService" availability="optional">
+		<reference-listener bind-method="bindHelloService" unbind-method="unbindHelloService">
+			<ref component-id="personServiceImpl" />
+		</reference-listener>
+	</reference-list>
+	
 	<jaxrs:server address="/person" id="personService">
 		<jaxrs:serviceBeans>
 			<ref component-id="personServiceImpl" />
@@ -26,5 +35,5 @@
 			<cxf:logging />
 		</jaxrs:features>
 	</jaxrs:server>
-
+	
 </blueprint>
